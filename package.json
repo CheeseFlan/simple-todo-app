@@ -4,7 +4,8 @@
   "description": "API para apresentação de um mini-curso ministrado no IFAL, para um todo app",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js"
+    "dev": "set NODE_ENV=development && nodemon app.js",
+    "start": "set NODE_ENV=production && node app.js"
   },
   "repository": {
     "type": "git",
