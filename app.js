@@ -8,9 +8,10 @@ const mongoose = require('mongoose') // mongoose
 const bodyParser = require('body-parser') // body-parser
 const morgan = require('morgan') // morgan
 const app = express() // instanciando o express
+const CORS = require('./utils/cors') // importando o cors
 const PORT = process.env.PORT || 3000 // setando a porta tanto para desenvolvimento quanto para produção
 
-// Verifica que se avariavel de ambiente é development ou production
+// Verifica que se a variavel de ambiente é development ou production
 if (app.get('env').trim() === 'development') {
   app.use(morgan('dev'))  // utilização do modulo morgan para gerar logs
 }
@@ -28,13 +29,16 @@ mongoose.Promise = global.Promise
 app.use(bodyParser.urlencoded({ extended: true })) // bodyParser para parsear os requests e responses
 app.use(bodyParser.json()) // bodyParser para parsear os requests e responses
 
+// Setando o cors para api
+app.use(CORS)
+
 // Rota default
 app.get('/', (req, res) => res.send('Hello there!!!'))
 
-// Rota pricinpal da API
+// Rota principal da API
 app.use('/api', require('./src/routes/todo'))
 
-// middleware de error
+// middleware para tratamento de erros
 app.use((err, req, res, next) => {
   res.status(err.status || 500).send({ ERROR: err.message })
 })
