@@ -6,13 +6,13 @@
 const express = require('express') // expresss
 const mongoose = require('mongoose') // mongoose
 const bodyParser = require('body-parser') // body-parser
-const morgan = require('morgan') // morgan
 const app = express() // instanciando o express
 const CORS = require('./utils/cors') // importando o cors
 const PORT = process.env.PORT || 3000 // setando a porta tanto para desenvolvimento quanto para produção
 
 // Verifica que se a variavel de ambiente é development ou production
 if (app.get('env').trim() === 'development') {
+  const morgan = require('morgan') // morgan
   app.use(morgan('dev'))  // utilização do modulo morgan para gerar logs
 }
 
